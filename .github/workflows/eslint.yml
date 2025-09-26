@@ -20,19 +20,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20 # or your Next.js version
+          node-version: 20 # adjust as needed
 
-      # 3️⃣ Install dependencies (including eslint-formatter-sarif)
+      # 3️⃣ Install dependencies (including correct SARIF formatter)
       - name: Install dependencies
         run: |
           npm install
-          npm install -D eslint-formatter-sarif
+          npm install --save-dev @microsoft/eslint-formatter-sarif
 
       # 4️⃣ Run ESLint and generate SARIF
       - name: Run ESLint (SARIF)
         run: |
           npx eslint "src/**/*.{js,jsx,ts,tsx}" \
-            -f node_modules/eslint-formatter-sarif/eslint-formatter-sarif.js \
+            -f @microsoft/eslint-formatter-sarif \
             -o eslint-results.sarif
 
       # 5️⃣ Upload SARIF to GitHub Code Scanning
