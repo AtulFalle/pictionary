@@ -32,7 +32,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.projectKey=pictionary
+            -Dsonar.projectKey=AtulFalle_pictionary
             -Dsonar.organization=atulfalle
             -Dsonar.sources=.
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
