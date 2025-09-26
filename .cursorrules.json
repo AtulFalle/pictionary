@@ -1,0 +1,49 @@
+{
+  "style": {
+    "framework": "nextjs",
+      "typescript": true,
+        "language": "typescript",
+          "ui_library": "shadcn/ui",
+            "css": "tailwind",
+              "code_quality": "strict",
+                "file_naming": "kebab-case"
+  },
+  "rules": [
+    {
+      "pattern": ".*",
+      "guidelines": [
+        "Use Next.js App Router (app/ directory) with TypeScript.",
+        "Use Server Components by default, Client Components only when necessary (hooks, interactivity).",
+        "Always use shadcn/ui components for UI elements (Button, Card, Input, Dialog, Table, etc).",
+        "Use Tailwind CSS utility classes for styling. Avoid inline styles or custom CSS unless needed.",
+        "Keep components small, composable, and placed under `components/` with proper grouping.",
+        "Use `lib/` for helpers, `hooks/` for custom React hooks, `types/` for TypeScript interfaces.",
+        "Use `@/` path alias for imports (configured in tsconfig.json).",
+        "Pages should be inside `app/` and follow Next.js routing conventions.",
+        "Use `layout.tsx` for shared layouts, `page.tsx` for route pages.",
+        "Prefer `async/await` with proper error handling for data fetching.",
+        "Use `zod` for schema validation (forms, API input/output).",
+        "Use NextAuth.js for authentication, stored in `app/api/auth/` routes.",
+        "Implement API routes inside `app/api/{feature}/route.ts`.",
+        "Prefer `react-query` or Next.js Server Actions for data fetching/mutations.",
+        "Use `env.mjs` for environment variables, validated with `zod`.",
+        "Follow accessibility best practices (aria labels, roles, focus states).",
+        "Document components with JSDoc or comments if non-trivial.",
+        "Keep code consistent with Prettier + ESLint setup.",
+        "Divide bulky components into smaller components."
+      ]
+    }
+  ],
+    "examples": [
+      {
+        "title": "Button Usage (shadcn/ui)",
+        "good": "import { Button } from \"@/components/ui/button\";\n\nexport default function Example() {\n  return <Button variant=\"default\">Click Me</Button>;\n}",
+        "bad": "export default function Example() {\n  return <button className='bg-blue-500'>Click</button>;\n}"
+      },
+      {
+        "title": "API Route Structure",
+        "good": "export async function POST(req: Request) {\n  const body = await req.json();\n  // validate with zod\n  return new Response(JSON.stringify({ success: true }));\n}",
+        "bad": "export default async function handler(req, res) {\n  res.send('ok');\n}"
+      }
+    ]
+}
