@@ -1,4 +1,4 @@
-name: ESLint + SARIF Scan
+name: ESLint CI
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  eslint-scan:
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout code
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -20,24 +20,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20 # adjust as needed
+          node-version: 20
 
-      # 3️⃣ Install dependencies (including correct SARIF formatter)
+      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: |
-          npm install
-          npm install --save-dev @microsoft/eslint-formatter-sarif
+        run: npm install
 
-      # 4️⃣ Run ESLint and generate SARIF
-      - name: Run ESLint (SARIF)
-        run: |
-          npx eslint "src/**/*.{js,jsx,ts,tsx}" \
-            -f @microsoft/eslint-formatter-sarif \
-            -o eslint-results.sarif
-
-      # 5️⃣ Upload SARIF to GitHub Code Scanning
-      - name: Upload ESLint SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
+      # 4️⃣ Run ESLint (default output)
+      - name: Run ESLint
+        run: npx eslint "src/**/*.{js,jsx,ts,tsx}"
