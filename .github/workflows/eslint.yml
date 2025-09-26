@@ -28,7 +28,7 @@ jobs:
 
       # 4️⃣ Run ESLint and generate SARIF
       - name: Run ESLint (SARIF)
-        run: npx eslint "src/**/*.{js,jsx,ts,tsx}" -f node_modules/eslint-formatter-sarif/eslint-formatter-sarif.js -o eslint-results.sarif
+        run: npm run lint:sarif
 
 
       # 5️⃣ Upload SARIF to GitHub Code Scanning
