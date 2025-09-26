@@ -6,7 +6,8 @@
     "dev": "concurrently \"node simple-socket-server.js\" \"next dev\"",
     "build": "next build",
     "start": "concurrently \"node socket-server.js\" \"next start\"",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:sarif": "eslint 'src/**/*.{js,jsx,ts,tsx}' -f node_modules/eslint-formatter-sarif/eslint-formatter-sarif.js -o eslint-results.sarif"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
