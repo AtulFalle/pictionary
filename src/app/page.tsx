@@ -21,15 +21,17 @@ export default function Home() {
     // Listen for room updates
     const handleRoomUpdate = (data: { room: GameRoomType }) => {
       console.log('Room update received:', data.room);
-      console.log('Current room:', currentRoom);
-      if (currentRoom && data.room.id === currentRoom.id) {
-        setCurrentRoom(data.room);
-        console.log('Room updated in main page:', data.room);
-      } else if (!currentRoom) {
-        // If no current room, this might be the initial room data
-        console.log('No current room, setting room:', data.room);
-        setCurrentRoom(data.room);
-      }
+      setCurrentRoom(prevRoom => {
+        if (prevRoom && data.room.id === prevRoom.id) {
+          console.log('Room updated in main page:', data.room);
+          return data.room;
+        } else if (!prevRoom) {
+          // If no current room, this might be the initial room data
+          console.log('No current room, setting room:', data.room);
+          return data.room;
+        }
+        return prevRoom;
+      });
     };
     
     socket.on('room_updated', handleRoomUpdate);
@@ -37,9 +39,9 @@ export default function Home() {
     // Cleanup on unmount
     return () => {
       socket.off('room_updated', handleRoomUpdate);
-      socket.disconnect();
+      // Don't disconnect the socket here as it's shared across components
     };
-  }, [currentRoom]);
+  }, []); // Remove currentRoom dependency
 
   const handleRoomCreated = (room: GameRoomType, player: Player) => {
     setCurrentRoom(room);

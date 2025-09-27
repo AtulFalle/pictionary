@@ -95,7 +95,6 @@ export function CreateRoomForm({ onRoomCreated }: CreateRoomFormProps) {
             <Input
               id="maxPlayers"
               type="number"
-              min="2"
               max="12"
               value={maxPlayers}
               onChange={(e) => setMaxPlayers(Number(e.target.value))}
